@@ -1,0 +1,87 @@
+Visual verification — 2026-09-05
+
+Desktop view (1440×960): The dashboard shows a calm deep-teal hero, contextual risk card, immediate action recommendation, a plant-recovery card, metric cards, navigation, and data cards. Contrast, spacing, and content hierarchy are clear at the primary desktop size. The generated circulation artwork and plant character render successfully from Manus storage.
+
+Mobile view (390×844): The header, hero, action card, and bottom navigation fit cleanly at a narrow viewport. Text retains readable line lengths, the primary action remains prominent, and no horizontal clipping was observed in the captured viewport.
+
+Build validation: `pnpm build` completed successfully before screenshot capture. The only build note is Vite's non-blocking default chunk-size recommendation.
+
+Interaction verification — 2026-09-05
+
+The live dashboard was opened in the browser. The "지금 시작" button opened the contextual micro-action timer. Selecting "완료했어요" rendered the positive completion state with recovery feedback and a clear return control. The "케어" navigation opened the symptom checklist. Selecting "숨이 차거나 흉통이 있어요" rendered the emergency escalation message and the "응급 도움 요청" action. This confirms the primary habit-flow success state and the urgent-symptom safety branch are both reachable and render as intended.
+
+Onboarding verification — 2026-09-05
+
+The new onboarding renders as a clear three-step flow. Step 1 exposes optional individual risk factors with selected-state feedback. The layout is centered, calm, and consistent with the dashboard brand language at desktop size. Browser testing confirmed the risk-factor selection changes state without navigation errors.
+
+Onboarding verification continued — 2026-09-05
+
+Step 2 renders the three goals as selectable cards. Browser testing confirmed the active selection indicator moves from the default focus goal to the selected schedule-management goal and remains visually clear.
+
+Calendar recommendation verification — 2026-09-05
+
+Step 3 shows a schedule preview and a connect toggle. Browser testing confirmed that enabling the toggle highlights the 15:20 break. Completing onboarding then updates the dashboard hero to “캘린더 기준 다음 쉬는 시간까지 34분” and changes the schedule card to “15:20 · 쉬는 시간 / 일정 사이 10분 · 루틴 추천 가능” with “일정 맞춤 추천”.
+
+Completion feedback verification — 2026-09-05
+
+The updated timer shows a live status message that changes based on progress (“천천히, 호흡을 놓치지 않아요.”). Completing the action renders the new celebration state with subtle orbit particles, a checkmark pop animation, “리듬을 되찾았어요”, “회복 시간 +1분”, and the existing return action. Browser extraction confirmed all messages and the completion state render correctly.
+
+Entry screen verification — 2026-09-05
+
+The new pre-app experience renders correctly in desktop and mobile viewports. Background is #F8FAFC, primary accent actions use #3DDC84, and the welcome hero includes a compact sample app preview. “앱 사용 도움말”, “테스트로 시작하기”, “로그인”, and “회원가입” entry points are all visible. The mobile layout keeps the brand header, hero copy, and test CTA readable without horizontal overflow.
+
+Entry interaction verification — 2026-09-05
+
+Browser testing confirmed the “앱 사용 도움말” button opens a modal with a three-step explanation covering setup, finding schedule gaps, and completing routines. The modal includes a clear “확인했어요” close action.
+
+Temporary access verification — 2026-09-05
+
+The temporary login button opens the intended modal with email and password fields plus the “테스트로 시작하기” action. The UI clearly labels this as temporary mode and does not imply real authentication is active.
+
+Temporary entry verification continued — 2026-09-05
+
+The temporary login modal’s test action correctly transitions into the existing three-step onboarding flow. This keeps the requested login/signup/test buttons as a front-end placeholder while preserving the app’s setup experience.
+
+Web-app UI verification — 2026-09-05
+
+Replaced the previous marketing-style welcome screen with a service-like web-app shell. Desktop now uses a left sidebar with product navigation, a utility header, compact start card, and account actions. Mobile collapses the sidebar into a simple header and keeps the start card, test, login, and signup actions readable. Both screenshots render cleanly without horizontal overflow.
+
+Web-app entry interaction verification — 2026-09-05
+
+The new “테스트로 시작하기” action transitions cleanly from the web-app shell into the existing onboarding step 1. Browser extraction confirms the onboarding content remains intact after the shell replacement.
+
+Dashboard flow verification — 2026-09-05
+
+Initial browser testing revealed that the login modal was incorrectly using the test-mode handler and opened onboarding. The modal handler has been corrected so the login action will bypass onboarding and enter the dashboard with a sample connected calendar profile, while test mode continues to open onboarding.
+
+Corrected login verification — 2026-09-05
+
+The login modal now labels its primary action “로그인하고 대시보드 보기”, clearly separating it from the test-mode CTA. The modal opens correctly after the fix.
+
+Dashboard and completion verification — 2026-09-05
+
+Corrected login now opens the dashboard directly, showing today’s sedentary time and routine metrics at a glance. The “일정” navigation opens the schedule screen with a calendar connection state, event list, recommended break at 15:20, and weekly completion calendar. Starting and completing the scheduled routine updates the calendar’s current-day marker and shows the enhanced completion state with multi-color particle accents, “회복 시간 +1분”, and success messaging.
+
+AI report verification — 2026-09-06
+
+The dashboard now includes an “AI RHYTHM COACH” section below the safety guidance. Browser extraction confirms the card shows the personalized goal (“집중력 회복 목표”), weekly completion rate (10 / 12, 84%), average sedentary time, recovery minutes, streak count, and an encouragement message. The feedback copy changes based on goal and whether today’s routine is completed. The requested external color-edit event targeted a stale selector and made no change; no manual color adjustment was needed for this feature.
+
+Start Point mobile-first verification — 2026-09-06
+
+Applied the provided logo from `/manus-storage/startpoint-logo_afef8c07.webp`, updated visible product branding to “시작점”, and verified the entry screen at 390×844. The mobile entry view fits without horizontal overflow, uses the requested #F8FAFC background and #3DDC84 primary accent, and presents a compact card-based start flow. Browser testing confirmed the test CTA opens the branded three-step onboarding with the logo and app name.
+
+Mobile dashboard verification continued — 2026-09-06
+
+Skipping optional onboarding setup opens the dashboard with the Start Point logo, updated app name, mobile bottom navigation, routine card, metrics, schedule card, care notice, and AI Rhythm Coach report. Browser extraction confirms the branded dashboard content and requested palette-related messaging are present.
+
+First-run flow verification — 2026-09-06
+
+The branded entry screen opens the existing privacy-aware onboarding. The first-run tutorial is wired to appear after login or onboarding profile completion, not before user setup, and its completion key is stored in localStorage under `startpoint:first-run-tutorial:v1`.
+
+Tutorial verification continued — 2026-09-06
+
+After profile setup, the splash screen displays the provided logo and “YOUR NEXT SMALL STEP” loading cue, then transitions automatically to the first tutorial slide. Browser verification confirmed the first slide’s illustration, copy, progress indicators, skip action, and next button. Advancing the flow correctly updates to slide 02 with the calendar-focused message and animated visual transition.
+
+Tutorial completion verification — 2026-09-06
+
+Slides 02 and 03 render with distinct calendar and completion concepts. The final “시작점 시작하기” action exits to the dashboard, where the existing metrics, schedule, care, and AI report remain intact. Completion is persisted with localStorage so the splash/tutorial is intended to show only on the first completed login or profile setup per browser.

@@ -1,0 +1,61 @@
+flowchart TB
+    subgraph CLIENT[Web Client]
+        UI[React UI]
+        STORE[Client Query and Session Store]
+        UI --> STORE
+    end
+
+    subgraph EDGE[Application Edge]
+        CDN[CDN and Static Hosting]
+        WAF[HTTPS WAF and Rate Limit]
+        API[API Gateway or BFF]
+        CDN --> UI
+        UI --> WAF --> API
+    end
+
+    subgraph DOMAIN[Domain Services]
+        AUTH[Auth Service]
+        PROFILE[Profile and Risk Service]
+        CALENDAR[Calendar Integration Service]
+        ROUTINE[Routine Recommendation Service]
+        ACTIVITY[Activity and Completion Service]
+        REPORT[Weekly AI Report Service]
+        NOTIFY[Notification Service]
+        API --> AUTH
+        API --> PROFILE
+        API --> CALENDAR
+        API --> ROUTINE
+        API --> ACTIVITY
+        API --> REPORT
+        API --> NOTIFY
+    end
+
+    subgraph DATA[Data Layer]
+        DB[(PostgreSQL)]
+        CACHE[(Redis Cache)]
+        OBJECT[(Object Storage)]
+        QUEUE[[Job Queue]]
+        AUTH --> DB
+        PROFILE --> DB
+        CALENDAR --> DB
+        ROUTINE --> DB
+        ACTIVITY --> DB
+        REPORT --> DB
+        REPORT --> CACHE
+        CALENDAR --> QUEUE
+        ACTIVITY --> QUEUE
+        REPORT --> QUEUE
+        OBJECT --> REPORT
+    end
+
+    subgraph EXT[External Systems]
+        GOOGLE[Google Calendar]
+        APPLE[Apple Calendar or CalDAV]
+        LLM[LLM Provider]
+        PUSH[Web Push or Email]
+    end
+
+    CALENDAR <--> GOOGLE
+    CALENDAR <--> APPLE
+    REPORT --> LLM
+    NOTIFY --> PUSH
