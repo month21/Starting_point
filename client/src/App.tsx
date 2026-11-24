@@ -1,3 +1,4 @@
+import Movement, { MovementNotice } from "@/pages/Movement";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,7 +16,7 @@ function Workspace() {
   const { loading, user } = useAuth();
   if (loading) return <div className="min-h-screen bg-[#f7f5ef]" />;
   if (!user) return <Landing />;
-  return <DashboardLayout><Switch><Route path="/" component={Home} /><Route path="/calendar" component={Calendar} /><Route path="/analytics" component={Analytics} /><Route component={NotFound} /></Switch></DashboardLayout>;
+  return <DashboardLayout><MovementNotice key={user.id} /><Switch><Route path="/movement" component={Movement} /><Route path="/" component={Home} /><Route path="/calendar" component={Calendar} /><Route path="/analytics" component={Analytics} /><Route component={NotFound} /></Switch></DashboardLayout>;
 }
 
 export default function App() {
