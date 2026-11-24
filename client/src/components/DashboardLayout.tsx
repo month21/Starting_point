@@ -9,6 +9,7 @@ import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
 
 const menuItems = [
+  { icon: HeartPulse, label: "움직임과 실천", path: "/movement" },
   { icon: HomeIcon, label: "오늘", path: "/" },
   { icon: CalendarDays, label: "일정", path: "/calendar" },
   { icon: Activity, label: "리포트", path: "/analytics" },

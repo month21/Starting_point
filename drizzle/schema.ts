@@ -67,3 +67,35 @@ export type TimeEntry = typeof timeEntries.$inferSelect;
 export type InsertTimeEntry = typeof timeEntries.$inferInsert;
 export type StepEntry = typeof stepEntries.$inferSelect;
 export type InsertStepEntry = typeof stepEntries.$inferInsert;
+
+export const movementProfiles = mysqlTable("movementProfiles", {
+  userId: int("userId").primaryKey().references(() => users.id, { onDelete: "cascade" }),
+  place: mysqlEnum("place", ["desk", "hall", "home"]).notNull().default("desk"),
+  situation: mysqlEnum("situation", ["quiet", "free"]).notNull().default("quiet"),
+  preference: mysqlEnum("preference", ["ankle", "walk", "stretch"]).notNull().default("walk"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const classPeriods = mysqlTable("classPeriods", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  start: timestamp("start").notNull(),
+  end: timestamp("end").notNull(),
+}, t => [index("class_user_end").on(t.userId, t.end)]);
+
+export const movementReminders = mysqlTable("movementReminders", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  seatId: int("seatId").notNull(),
+  slot: int("slot").notNull(),
+  mode: mysqlEnum("mode", ["fixed", "custom"]).notNull(),
+  decision: mysqlEnum("decision", ["defer", "send", "skip"]).notNull(),
+  reason: varchar("reason", { length: 100 }).notNull(),
+  exercise: mysqlEnum("exercise", ["ankle", "walk", "stretch"]).notNull(),
+  createdAt: timestamp("createdAt").notNull(),
+  decidedAt: timestamp("decidedAt").notNull(),
+  deferredUntil: timestamp("deferredUntil"),
+  shownAt: timestamp("shownAt"),
+  response: mysqlEnum("response", ["done", "dismiss"]),
+  respondedAt: timestamp("respondedAt"),
+}, t => [uniqueIndex("movement_opportunity").on(t.userId, t.seatId, t.slot), index("movement_history").on(t.userId, t.createdAt)]);

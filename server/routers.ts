@@ -1,3 +1,4 @@
+import { movementRouter } from "./routers/movement";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
@@ -14,6 +15,7 @@ export const appRouter = router({
     }),
   }),
   tracking: trackingRouter,
+  movement: movementRouter,
 });
 
 export type AppRouter = typeof appRouter;
